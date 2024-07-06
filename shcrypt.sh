@@ -338,10 +338,10 @@ _shcrypt_checksum()
 			_shcrypt_file_test "$_ck_file1"
 			_shcrypt_file_test "$_ck_file2"
 
-			_ck_file1_hash="`${_ck_opt#--}sum "$_ck_file2"`"
+			_ck_file1_hash="`${_ck_opt#--}sum "$_ck_file1"`"
 			_ck_file2_hash="`${_ck_opt#--}sum "$_ck_file2"`"
 
-			[ "${_ck_file1_hash}" = "${_ck_file2_hash}" ] && { #if
+			[ "${_ck_file1_hash%% *}" = "${_ck_file2_hash%% *}" ] && { #if
 				return ${_shcrypt_true}
 			} || { #else
 				return ${_shcrypt_false}
