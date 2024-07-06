@@ -66,5 +66,7 @@ $ _shcrypt_rtext 10
 jCddbNabPG
 $ _shcrypt_random 40
 *Iv+9H?[TLnjH"e5-B:g(o*f|?{#1/1jv5S8ET>`</p></code></pre>
-
+<hr>
+<p align="center">donate</p>
+<p align="center">bitcoin: bc1qq77c3w5l97da0pjn6d4dx9zueys29p799q7heq</p>
 </html>
