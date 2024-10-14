@@ -52,6 +52,7 @@ _shcrypt_text_test()
 	[ -n "$1" ] && { #if
 		return ${_shcrypt_true}
 	} || { #else
+		_invalid_text=
 		unset _invalid_text
 		: ${_invalid_text?"$1"}
 		exit ${_shcrypt_false}
@@ -64,6 +65,7 @@ _shcrypt_file_test()
 	[ -e "$1" ] && { #if
 		return ${_shcrypt_true}
 	} || { #else
+		_invalid_file=
 		unset _invalid_file
 		: ${_invalid_file?"$1"}
 		exit ${_shcrypt_false}
@@ -329,19 +331,17 @@ _shcrypt_b2()
 _shcrypt_checksum()
 {
 	_ck_opt="$1"
-	_ck_file1="$2"
-	_ck_file2="$3"
+	_ck_hash="$2"
+	_ck_file="$3"
+
+	_shcrypt_file_test "$_ck_file"
 
 	case "$_ck_opt" in
 
 		--md5|--sha1|--sha224|--sha256|--sha384|--sha512|--b2)
-			_shcrypt_file_test "$_ck_file1"
-			_shcrypt_file_test "$_ck_file2"
+			_ck_file_hash="`${_ck_opt#--}sum "$_ck_file"`"
 
-			_ck_file1_hash="`${_ck_opt#--}sum "$_ck_file1"`"
-			_ck_file2_hash="`${_ck_opt#--}sum "$_ck_file2"`"
-
-			[ "${_ck_file1_hash%% *}" = "${_ck_file2_hash%% *}" ] && { #if
+			[ "${_ck_hash%% *}" = "${_ck_file_hash%% *}" ] && { #if
 				return ${_shcrypt_true}
 			} || { #else
 				return ${_shcrypt_false}
@@ -351,6 +351,7 @@ _shcrypt_checksum()
 		*)
 			_shcrypt_invalid_option "$_ck_opt"
 		;;
+
 	esac
 }
 
